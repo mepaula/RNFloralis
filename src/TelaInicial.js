@@ -7,11 +7,11 @@ const TelaInicial = () => {
   ];
 
   const featuredAlbums = [
-    { id: 1, title: 'Álbum 1', artist: 'Johann Sebastian Bach', image: require('./compositor-um.jpg') },
-    { id: 1, title: 'Álbum 2', artist: 'Johann Sebastian Bach', image: require('./compositor-um.jpg') },
-    { id: 1, title: 'Álbum 3', artist: 'Johann Sebastian Bach', image: require('./compositor-um.jpg') },
-    { id: 1, title: 'Álbum 4', artist: 'Johann Sebastian Bach', image: require('./compositor-um.jpg') },
-    { id: 1, title: 'Álbum 5', artist: 'Johann Sebastian Bach', image: require('./compositor-um.jpg') },
+    { id: 1, title: 'Álbum 1', artist: 'Johann Sebastian Bach', image: require('../assets/compositor-um.jpg') },
+    { id: 1, title: 'Álbum 2', artist: 'Johann Sebastian Bach', image: require('../assets/compositor-um.jpg') },
+    { id: 1, title: 'Álbum 3', artist: 'Johann Sebastian Bach', image: require('../assets/compositor-um.jpg') },
+    { id: 1, title: 'Álbum 4', artist: 'Johann Sebastian Bach', image: require('../assets/compositor-um.jpg') },
+    { id: 1, title: 'Álbum 5', artist: 'Johann Sebastian Bach', image: require('../assets/compositor-um.jpg') },
   ];
 
   return (

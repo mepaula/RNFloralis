@@ -1,81 +1,75 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import AsynStorage from "@react-native-async-storage/async-storage";
+import { UserContext } from './Context/UserContext';
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
+export default function Login({ setLogin }) {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha]= useState("");
+  const [erro, setErro] = useState(false);
+
+  const {Login} = useContext( UserContext );
+    
+    function realizaLogin()
+    {
+      Login( email, senha );
+    }
 
   return (
     <View style={styles.container}>
-      {/* Logo */}
-      <Image
-        style={styles.logo}
-        source={require('./fotousuário.png')}
-      />
-
-      <Text style={styles.title}>FAZER LOGIN</Text>
+      <Text style={styles.text}>Faça o login, para ter acesso ao aplicativo</Text>
       <TextInput
-        style={styles.textInput}
-        placeholder="Insira seu Email:"
+        style={styles.input}
+        placeholder='email'
+        onChangeText={ (digitado) => setEmail( digitado )}
         value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
       />
       <TextInput
-        style={styles.textInput}
-        placeholder="Insira sua senha:"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
+        style={styles.input}
+        placeholder='senha'
+        onChangeText={ (digitado) => setSenha( digitado )}
+        value={senha}
       />
-      <Button 
-        title="ENTRAR" 
-        onPress={handleLogin} 
-        style={styles.button} 
-        color="#841584" // Cor do botão
-      />
-      <Text style={styles.registerText}>Não é Cadastrado ainda? Cadastre-se</Text>
+      <TouchableOpacity style={styles.button} onPress={realizaLogin}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+      {erro && <Text style={styles.errorMessage}>Email ou senha incorreto</Text>}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: '#fff',
   },
-  logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: 'black'
-  },
-  textInput: {
+  input: {
     width: '80%',
     height: 40,
-    borderColor: 'gray',
     borderWidth: 1,
+    borderColor: '#ccc',
     borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,
-    color: 'black'
   },
-  registerText: {
-    marginTop: 20,
-    color: "#841584",
+  button: {
+    width: '80%',
+    height: 40,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginBottom: 10,
   },
-});
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  errorMessage: {
+    color: 'red',
+  },
 
-export default Login;
+});
