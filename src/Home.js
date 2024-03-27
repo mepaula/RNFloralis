@@ -2,32 +2,29 @@ import React, { useContext } from 'react';
 import { View, Text, Button, Image, StyleSheet } from 'react-native';
 import { UserContext } from './Context/UserContext';
 
-
-
 const Home = ({ navigation }) => {
-
-  const {usuario} = useContext( UserContext );
+  const { usuario } = useContext(UserContext);
 
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/logopulseplataform.png')} //*imagem adicionada como logo
+        source={require('../assets/logopulseplataform.png')}
         style={styles.logo}
       />
-      <Text style={styles.login}>Bem-vido(a):</Text>
-      <Text style={styles.login}>Fazer login</Text>
-      <Button 
-        title="LOGIN" 
-        onPress={() => navigation.navigate('Login')} 
-        style={styles.button} 
-        color="silver" 
+      <Text style={styles.welcome}>Bem-vindo(a) ao Pulse Plataform</Text>
+      <Text style={styles.login}>Já tem uma conta? Faça login!</Text>
+      <Button
+        title="LOGIN"
+        onPress={() => navigation.navigate('Login')}
+        style={styles.button}
+        color="red"
       />
-      <Text style={styles.cadastro}>É sua primeira vez aqui?</Text>
-      <Button 
-        title="ME CADASTRAR" 
-        onPress={() => navigation.navigate('Cadastro')} 
-        style={styles.button} 
-        color="silver" 
+      <Text style={styles.signup}>É sua primeira vez aqui?</Text>
+      <Button
+        title="ME CADASTRAR"
+        onPress={() => navigation.navigate('Cadastro')}
+        style={styles.button}
+        color="red"
       />
     </View>
   );
@@ -38,42 +35,42 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'black'
+    backgroundColor: '#000000',
   },
   logo: {
     width: 200,
     height: 150,
     marginBottom: 20,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
-  title: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 15,
-    width: 240,
-    height: 50,
-    textAlign: 'center'
+  welcome: {
+    fontSize: 24,
+    color: '#FFFFFF',
+    marginBottom: 20,
+    textAlign: 'center',
+    borderColor: 'red',
   },
   login: {
-    fontSize: 16,
-    marginTop: 20,
-    color: 'white',
+    fontSize: 18,
+    color: '#FFFFFF',
+    marginBottom: 20,
+    borderColor: 'red',
   },
-  cadastro: {
-    fontSize: 16,
-    marginTop: 20,
-    color: 'white'
+  signup: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    marginBottom: 20,
+    borderColor: 'red',
   },
   button: {
-    width: 200, 
-    height: 40, 
-    marginBottom: 10, 
-    borderRadius: 20, 
-    justifyContent: 'center', 
+    width: 200,
+    height: 40,
+    marginBottom: 10,
+    borderRadius: 20,
+    justifyContent: 'center',
     alignItems: 'center',
-    color: 'white'
-  }
+    borderColor: 'red',
+  },
 });
 
 export default Home;

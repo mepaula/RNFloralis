@@ -11,7 +11,9 @@ const Premium = () => {
   const handleBuyPremium = () => {
     if (cardNumber && expiryDate && cvv) {
       Alert.alert('Parabéns!', 'Você comprou a versão premium com sucesso!', [
-        { text: 'OK', onPress: () => navigation.navigate('VersaoPremium') }
+        { text: 'OK', onPress: () => {
+          navigation.navigate('Premium'); // Navegação para a tela de albuns premium 
+        }}
       ]);
     } else {
       Alert.alert('Erro', 'Por favor, preencha todas as informações do cartão para continuar.');
@@ -20,29 +22,29 @@ const Premium = () => {
 
   return (
     <View style={styles.container}>
-        <Image
-        source={require('../assets/escutamusica.png')} //*imagem adicionada como logo
-        style={styles.imagem}
+      <Image
+        source={require('../assets/escutamusica.png')}
+        style={styles.logo}
       />
       <Text style={styles.title}>Obtenha acesso à versão Premium!</Text>
-      <Text style={styles.subtitle}>Por apenas 26,90 por mês</Text>
+      <Text style={styles.subtitle}>Por apenas R$ 26,90 por mês</Text>
       <TextInput
         style={styles.input}
-        placeholder="Número do Cartão"
+        placeholder="Número do Cartão *"
         value={cardNumber}
         onChangeText={setCardNumber}
         keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
-        placeholder="Data de Validade (MM/YY)"
+        placeholder="Data de Validade (MM/YY) *"
         value={expiryDate}
         onChangeText={setExpiryDate}
         keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
-        placeholder="CVV"
+        placeholder="CVV *"
         value={cvv}
         onChangeText={setCvv}
         keyboardType="numeric"
@@ -62,16 +64,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
+  },
   title: {
     fontSize: 24,
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    fontSize: 18,
+    marginBottom: 20,
+    color: 'gray',
   },
   input: {
     width: '80%',
     height: 40,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#ccc',
     borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,
@@ -82,27 +95,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderRadius: 5,
     alignItems: 'center',
+    marginBottom: 20,
   },
   buttonText: {
     fontSize: 18,
     color: '#fff',
   },
-  subtitle: {
-    fontSize: 20,
-    color: 'gray',
-    fontStyle: 'italic',
-    marginBottom: 10,
-  },
-  image: {
-    width: 200,
-    height: 50,
-    marginBottom: 10,
-  },
-  imagem: {
-    width: 200,
-    height: 200,
-    marginBottom: 10,
-  }
 });
 
 export default Premium;
