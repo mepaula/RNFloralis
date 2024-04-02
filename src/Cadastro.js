@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Cadastro = ({ navigation }) => {
   const [nome, setNome] = useState('');
@@ -9,31 +10,33 @@ const Cadastro = ({ navigation }) => {
   const [senha, setSenha] = useState('');
   const [confirmacao, setConfirmacao] = useState('');
 
-  const cadastrar = () => {
+  const cadastrar = async () => {
     if (!nome || !email || !telefone || !nascimento || !senha || !confirmacao) {
-      alert('Por favor, preencha todos os campos.');
+      Alert.alert('Por favor, preencha todos os campos.');
       return;
     }
 
     if (senha !== confirmacao) {
-      alert('As senhas não coincidem.');
+      Alert.alert('As senhas não coincidem.');
       return;
     }
 
-    // Aqui você pode adicionar a lógica para enviar os dados do usuário para o servidor ou armazenar localmente
-    console.log('Nome:', nome);
-    console.log('Email:', email);
-    console.log('Telefone:', telefone);
-    console.log('Data de Nascimento:', nascimento);
-    console.log('Senha:', senha);
-    console.log('Confirmação de senha:', confirmacao);
-
-    // Após o cadastro, você pode redirecionar o usuário para outra tela, por exemplo:
-    // navigation.navigate('TelaInicial', { nome, email });
+    try {
+      // Supondo que o cadastro seja bem-sucedido, armazene as credenciais
+      await AsyncStorage.setItem('email', email);
+      await AsyncStorage.setItem('senha', senha);
+      
+      // Navegue para a tela de login após o cadastro
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Erro ao cadastrar:', error);
+      Alert.alert('Erro ao cadastrar. Por favor, tente novamente.');
+    }
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.titulo}>CADASTRE-SE PARA TER ACESSO AO NOSSO SITE:</Text>
       <Text style={styles.label}>Nome:</Text>
       <TextInput
         style={styles.input}
@@ -81,14 +84,18 @@ const Cadastro = ({ navigation }) => {
         value={confirmacao}
         secureTextEntry={true}
       />
-      <Button title="Cadastrar" onPress={cadastrar} style={styles.button} />
-    </View>
+      <Button
+        title="CADASTRAR"
+        onPress={cadastrar}
+        color="red"
+      />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -108,10 +115,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,
+    color: 'white' 
   },
-  button: {
-    backgroundColor: 'red',
-  }
+  titulo: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 20,
+    textAlign: 'center'
+  },
 });
 
 export default Cadastro;

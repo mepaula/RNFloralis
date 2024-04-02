@@ -2,14 +2,15 @@ import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Animated } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from './Context/UserContext';
+import { useNavigation } from '@react-navigation/native'; // Importa o hook useNavigation
 
 export default function Login({ setLogin }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState(false);
   const [logoOpacity] = useState(new Animated.Value(0));
-
   const { Login } = useContext(UserContext);
+  const navigation = useNavigation(); // Obtém a navegação
 
   useEffect(() => {
     fadeInLogo();
@@ -23,10 +24,12 @@ export default function Login({ setLogin }) {
     }).start();
   }
 
-  const realizaLogin = () => {
+  const realizaLogin = async () => {
     if (email && senha) {
       // Aqui você pode fazer a validação do email e senha antes de chamar o método de login
-      Login(email, senha);
+      await Login(email, senha); // Supondo que Login seja uma função assíncrona
+      // Após o login bem-sucedido, navegue para a tela inicial
+      navigation.navigate('TelaInicial'); // Altere 'TelaInicial' para o nome da sua tela inicial
     } else {
       setErro(true);
     }

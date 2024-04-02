@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Alert, StyleSheet, ScrollView, Image } from 'react-native';
 
 
-
 const Premium = () => {
   const [isPremium, setIsPremium] = useState(false);
 

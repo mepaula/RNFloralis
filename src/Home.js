@@ -11,21 +11,25 @@ const Home = ({ navigation }) => {
         source={require('../assets/logopulseplataform.png')}
         style={styles.logo}
       />
-      <Text style={styles.welcome}>Bem-vindo(a) ao Pulse Plataform</Text>
-      <Text style={styles.login}>Já tem uma conta? Faça login!</Text>
-      <Button
-        title="LOGIN"
-        onPress={() => navigation.navigate('Login')}
-        style={styles.button}
-        color="red"
-      />
-      <Text style={styles.signup}>É sua primeira vez aqui?</Text>
-      <Button
-        title="ME CADASTRAR"
-        onPress={() => navigation.navigate('Cadastro')}
-        style={styles.button}
-        color="red"
-      />
+      <Text style={styles.welcome}>Bem-vindo(a) ao Pulse Platform</Text>
+      <View style={styles.buttonsContainer}>
+        <Button
+          title="LOGIN"
+          onPress={() => navigation.navigate('Login')}
+          color="red"
+          style={styles.button}
+        />
+        <Text style={styles.text}>Já tem uma conta? Faça login!</Text>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <Button
+          title="ME CADASTRAR"
+          onPress={() => navigation.navigate('Cadastro')}
+          color="red"
+          style={styles.button}
+        />
+        <Text style={styles.text}>É sua primeira vez aqui?</Text>
+      </View>
     </View>
   );
 };
@@ -33,14 +37,14 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000000',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000000',
   },
   logo: {
     width: 200,
     height: 150,
-    marginBottom: 20,
+    marginBottom: 40,
     resizeMode: 'contain',
   },
   welcome: {
@@ -48,28 +52,20 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 20,
     textAlign: 'center',
-    borderColor: 'red',
   },
-  login: {
+  text: {
     fontSize: 18,
     color: '#FFFFFF',
-    marginBottom: 20,
-    borderColor: 'red',
+    textAlign: 'center',
   },
-  signup: {
-    fontSize: 18,
-    color: '#FFFFFF',
+  buttonsContainer: {
+    width: '80%',
     marginBottom: 20,
-    borderColor: 'red',
   },
   button: {
-    width: 200,
-    height: 40,
     marginBottom: 10,
     borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: 'red',
+    height: 50,
   },
 });
 
