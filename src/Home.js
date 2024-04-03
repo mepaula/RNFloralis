@@ -13,22 +13,22 @@ const Home = ({ navigation }) => {
       />
       <Text style={styles.welcome}>Bem-vindo(a) ao Pulse Platform</Text>
       <View style={styles.buttonsContainer}>
+      <Text style={styles.text}>Já tem uma conta? Faça login!</Text>
         <Button
           title="LOGIN"
           onPress={() => navigation.navigate('Login')}
           color="red"
           style={styles.button}
         />
-        <Text style={styles.text}>Já tem uma conta? Faça login!</Text>
       </View>
       <View style={styles.buttonsContainer}>
+      <Text style={styles.text}>É sua primeira vez aqui?</Text>
         <Button
           title="ME CADASTRAR"
           onPress={() => navigation.navigate('Cadastro')}
           color="red"
           style={styles.button}
         />
-        <Text style={styles.text}>É sua primeira vez aqui?</Text>
       </View>
     </View>
   );

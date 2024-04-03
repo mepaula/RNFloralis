@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import Premium from './Premium'; // Importando a tela premium diretamente
 
-const Pagamento = ({ navigation }) => {
+const Pagamento = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
 
   const handlePayment = () => {
-    Alert.alert('Pagamento Confirmado', 'Cobrança realizada com sucesso!');
-    navigation.navigate('PremiumScreen');
+    // Simulando um pagamento bem-sucedido
+    setTimeout(() => {
+      Alert.alert('Pagamento Confirmado', 'Cobrança realizada com sucesso!');
+      setPaymentConfirmed(true); // Define que o pagamento foi confirmado
+    }, 2000);
   };
+
+  if (paymentConfirmed) {
+    return <Premium />; // Se o pagamento estiver confirmado, exibe a tela premium
+  }
 
   return (
     <View style={styles.container}>
@@ -53,12 +62,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     backgroundColor: 'red',
-    color: 'white',
   },
   title: {
     fontSize: 20,
     marginBottom: 20,
-    color: 'black',
+    color: 'white',
   },
   input: {
     width: '100%',
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
-    color: 'black'
+    color: 'white'
   },
   button: {
     width: '100%',
@@ -86,8 +94,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
-    color: 'black',
+    color: 'white',
   },
 });
 
 export default Pagamento;
+
+

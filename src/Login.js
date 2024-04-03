@@ -2,15 +2,16 @@ import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Animated } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from './Context/UserContext';
-import { useNavigation } from '@react-navigation/native'; // Importa o hook useNavigation
+import { useNavigation } from '@react-navigation/native'; // Importa o hook de navegação
 
 export default function Login({ setLogin }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState(false);
   const [logoOpacity] = useState(new Animated.Value(0));
+
   const { Login } = useContext(UserContext);
-  const navigation = useNavigation(); // Obtém a navegação
+  const navigation = useNavigation(); // Obtém o objeto de navegação
 
   useEffect(() => {
     fadeInLogo();
@@ -24,16 +25,21 @@ export default function Login({ setLogin }) {
     }).start();
   }
 
-  const realizaLogin = async () => {
+  const realizaLogin = () => {
     if (email && senha) {
       // Aqui você pode fazer a validação do email e senha antes de chamar o método de login
-      await Login(email, senha); // Supondo que Login seja uma função assíncrona
-      // Após o login bem-sucedido, navegue para a tela inicial
-      navigation.navigate('TelaInicial'); // Altere 'TelaInicial' para o nome da sua tela inicial
+      Login(email, senha).then((success) => {
+        if (success) {
+          navigation.navigate('TelaInicial'); // Navega para a tela inicial após o login bem-sucedido
+        } else {
+          setErro(true);
+        }
+      });
     } else {
       setErro(true);
     }
-  }
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -79,7 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 20,
     textAlign: 'center',
-    color: 'red', // Texto em vermelho
+    color: 'red', 
   },
   input: {
     width: '80%',
@@ -89,7 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,
-    color: 'white', // Texto em branco
+    color: 'white', 
   },
   button: {
     width: '80%',
@@ -105,8 +111,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   errorMessage: {
-    color: 'red', // Texto em vermelho
-    marginTop: 10, // Adiciona um espaço entre o botão e a mensagem de erro
+    color: 'red', 
+    marginTop: 10,
   },
 });
+
+
 
