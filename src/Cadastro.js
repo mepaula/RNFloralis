@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -24,12 +24,11 @@ const Cadastro = ({ navigation }) => {
     }
 
     try {
-      // Supondo que o cadastro seja bem-sucedido, armazene as credenciais
       await AsyncStorage.setItem('email', email);
       await AsyncStorage.setItem('senha', senha);
       
-      // Navegue para a tela de login após o cadastro
-      navigation.navigate('Login');
+      const { Login } = useContext(UserContext);
+      
     } catch (error) {
       console.error('Erro ao cadastrar:', error);
       Alert.alert('Erro ao cadastrar. Por favor, tente novamente.');
@@ -38,6 +37,10 @@ const Cadastro = ({ navigation }) => {
   
   return (
     <ScrollView contentContainerStyle={styles.container}>
+       <Image
+        source={require('../assets/logopulseplataform.png')}
+        style={styles.logo}
+      />
       <Text style={styles.titulo}>CADASTRE-SE PARA TER ACESSO AO NOSSO SITE:</Text>
       <Text style={styles.label}>Nome:</Text>
       <TextInput
@@ -126,6 +129,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center'
   },
+  logo: {
+    width: 90,
+    height: 40,
+    marginBottom: 20,
+  }
 });
 
 export default Cadastro;

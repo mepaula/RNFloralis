@@ -2,16 +2,14 @@ import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Animated } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from './Context/UserContext';
-import { useNavigation } from '@react-navigation/native'; // Importa o hook de navegação
 
-export default function Login({ setLogin }) {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState(false);
   const [logoOpacity] = useState(new Animated.Value(0));
 
-  const { Login } = useContext(UserContext);
-  const navigation = useNavigation(); // Obtém o objeto de navegação
+  const { TelaInicial, Login } = useContext(UserContext);
 
   useEffect(() => {
     fadeInLogo();
@@ -24,23 +22,6 @@ export default function Login({ setLogin }) {
       useNativeDriver: true
     }).start();
   }
-
-  const realizaLogin = () => {
-    if (email && senha) {
-      // Aqui você pode fazer a validação do email e senha antes de chamar o método de login
-      Login(email, senha).then((success) => {
-        if (success) {
-          navigation.navigate('TelaInicial'); // Navega para a tela inicial após o login bem-sucedido
-        } else {
-          setErro(true);
-        }
-      });
-    } else {
-      setErro(true);
-    }
-  };
-  
-
   return (
     <View style={styles.container}>
       <Animated.Image
@@ -59,9 +40,9 @@ export default function Login({ setLogin }) {
         placeholder='Senha'
         onChangeText={(digitado) => setSenha(digitado)}
         value={senha}
-        secureTextEntry={true} // Para ocultar a senha enquanto o usuário digita
+        secureTextEntry={true}
       />
-      <TouchableOpacity style={styles.button} onPress={realizaLogin}>
+      <TouchableOpacity style={styles.button} onPress={Login( email, senha )}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       {erro && <Text style={styles.errorMessage}>Email ou senha incorretos</Text>}

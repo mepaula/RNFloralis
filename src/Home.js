@@ -11,21 +11,21 @@ const Home = ({ navigation }) => {
         source={require('../assets/logopulseplataform.png')}
         style={styles.logo}
       />
-      <Text style={styles.welcome}>Bem-vindo(a) ao Pulse Platform</Text>
+      <Text style={styles.welcome}>A melhor plataforma de Músicas!</Text>
       <View style={styles.buttonsContainer}>
-      <Text style={styles.text}>Já tem uma conta? Faça login!</Text>
+      <Text style={styles.text}>Deseja ter acesso as msúsicas gratuitas?</Text>
         <Button
-          title="LOGIN"
-          onPress={() => navigation.navigate('Login')}
+          title="Clique aqui"
+          onPress={() => navigation.navigate('TelaInicial')}
           color="red"
           style={styles.button}
         />
       </View>
       <View style={styles.buttonsContainer}>
-      <Text style={styles.text}>É sua primeira vez aqui?</Text>
+      <Text style={styles.text}>Quer er acesso a versão Premium?</Text>
         <Button
-          title="ME CADASTRAR"
-          onPress={() => navigation.navigate('Cadastro')}
+          title="Clique aqui"
+          onPress={() => navigation.navigate('Pagamento')}
           color="red"
           style={styles.button}
         />
@@ -36,7 +36,7 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
     backgroundColor: '#000000',
     alignItems: 'center',
     justifyContent: 'center',
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   welcome: {
-    fontSize: 24,
+    fontSize: 25,
     color: '#FFFFFF',
     marginBottom: 20,
     textAlign: 'center',
