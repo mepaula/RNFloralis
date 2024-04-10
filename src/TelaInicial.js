@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
-import { Text, StyleSheet, ScrollView, Image, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; 
+import React, { useState, useEffect } from 'react';
+import { Text, StyleSheet, ScrollView, Image, TouchableOpacity, View, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import NetInfo from "@react-native-community/netinfo";
 
 const MusicItem = ({ item, onPress }) => (
   <TouchableOpacity style={styles.item} onPress={() => onPress(item.title)}>
@@ -14,7 +15,17 @@ const MusicItem = ({ item, onPress }) => (
 );
 
 const TelaInicial = () => {
-  const navigation = useNavigation(); // Obtendo o objeto de navegação
+  const navigation = useNavigation();
+  const [isConnected, setIsConnected] = useState(true); // Estado da conexão à Internet
+
+  useEffect(() => {
+    // Verificar o estado da conexão à Internet ao montar o componente
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected);
+    });
+
+    return () => unsubscribe(); // Remover o listener ao desmontar o componente
+  }, []);
 
   const playlists = [
     { id: 'Playlist Ariana', image: require('../assets/album-arianagrande.webp') },
@@ -66,6 +77,16 @@ const playlistsFUNK = [
   { id:3,  title:'Playlist MC Cabelinho', image: require('../assets/mc-cabelinho.webp') },
   { id:4,  title:'Playlist MC Ryan SP', image: require('../assets/mc-ryan-sp.jpg') },
 ];
+
+  if (!isConnected) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.heading}>Sem Conexão com a Internet</Text>
+        <Text style={styles.subheading}>Por favor, verifique sua conexão com a Internet e tente novamente.</Text>
+      </View>
+    );
+  }
+
   const playMusic = (title) => {
     console.log('Reproduzindo música:', title);
   };
@@ -73,6 +94,15 @@ const playlistsFUNK = [
   const navigateToPagamento = () => {
     navigation.navigate('Pagamento'); // Navegando para a tela de pagamento
   };
+
+  if (!isConnected) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.heading}>Sem Conexão com a Internet</Text>
+        <Text style={styles.subheading}>Por favor, verifique sua conexão com a Internet e tente novamente.</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -86,7 +116,7 @@ const playlistsFUNK = [
         ))}
       </ScrollView>
 
-      <Text style={styles.sectionTitle}>Cantores Sertanejos:</Text>
+      <Text style={styles.sectionTitle}>Cantores Sertanejs:</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {featuredAlbums.map(album => (
           <MusicItem key={album.id} item={album} onPress={playMusic} />
@@ -136,6 +166,11 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center'
   },
+  subheading: {
+    fontSize: 18,
+    color: 'white',
+    textAlign: 'center'
+  },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -181,28 +216,6 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 20,
   },
-  adContainer: {
-    backgroundColor: 'red',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  adText: {
-    fontSize: 16,
-    marginBottom: 10,
-    textAlign: 'center',
-    color: 'white'
-  },
-  upgradeButton: {
-    backgroundColor: 'black',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
-  upgradeButtonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
   button: {
     backgroundColor: '#333',
     padding: 10,
@@ -217,5 +230,3 @@ const styles = StyleSheet.create({
 });
 
 export default TelaInicial;
-
-

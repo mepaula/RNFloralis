@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+//SÓ DANDO UM BREVE AVISO QUE ESSA PARTE É FEITA ATÉ QUANDO NÃO FOR COLOCADO 
+//DADOS DO CARTÃO, POR CONTA DA PRIVACIDADE, MAS SE FOSSE PARA SER REALMENTE UM 
+//APLICATIVO FUNCIONAL, O USUÁRIO SERIA OBRIGADO Á COLOCAR OS DADOS DO CARTÃO
+
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import Premium from './Premium'; // Importando a tela premium diretamente
+import Premium from './Premium'; 
+
+import { useBatteryLevel } from 'expo-battery';
 
 const Pagamento = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+  const batteryLevel = useBatteryLevel();
 
   const handlePayment = () => {
+    // Verificar a bateria antes do pagamento
+    if (batteryLevel !== null && batteryLevel < 0.15) {
+      Alert.alert('Atenção', 'A bateria do dispositivo está abaixo de 15%. O pagamento será processado após um minuto.');
+      setTimeout(() => {
+        processPayment();
+      }, 60000); // 1 minuto de atraso
+    } else {
+      processPayment(); // Processa o pagamento imediatamente se a bateria estiver acima de 15%
+    }
+  };
+
+  const processPayment = () => {
     // Simulando um pagamento bem-sucedido
     setTimeout(() => {
       Alert.alert('Pagamento Confirmado', 'Cobrança realizada com sucesso!');
