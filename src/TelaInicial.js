@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, StyleSheet, ScrollView, Image, TouchableOpacity, View } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native'; 
 
 const MusicItem = ({ item, onPress }) => (
   <TouchableOpacity style={styles.item} onPress={() => onPress(item.title)}>
@@ -14,6 +14,8 @@ const MusicItem = ({ item, onPress }) => (
 );
 
 const TelaInicial = () => {
+  const navigation = useNavigation(); // Obtendo o objeto de navegação
+
   const playlists = [
     { id: 'Playlist Ariana', image: require('../assets/album-arianagrande.webp') },
     { id: 'Playlist Adele', image: require('../assets/album-adele.jpg') },
@@ -64,17 +66,17 @@ const playlistsFUNK = [
   { id:3,  title:'Playlist MC Cabelinho', image: require('../assets/mc-cabelinho.webp') },
   { id:4,  title:'Playlist MC Ryan SP', image: require('../assets/mc-ryan-sp.jpg') },
 ];
-
   const playMusic = (title) => {
     console.log('Reproduzindo música:', title);
   };
 
+  const navigateToPagamento = () => {
+    navigation.navigate('Pagamento'); // Navegando para a tela de pagamento
+  };
+
   return (
     <ScrollView style={styles.container}>
-      <Image
-        source={require('../assets/logopulseplataform.png')}
-        style={styles.logo}
-      />
+      <Image source={require('../assets/logopulseplataform.png')} style={styles.logo} />
       <Text style={styles.heading}>Ouça agora suas Músicas Favoritas</Text>
       
       <Text style={styles.sectionTitle}>Musicas Internacionais</Text>
@@ -84,7 +86,7 @@ const playlistsFUNK = [
         ))}
       </ScrollView>
 
-      <Text style={styles.sectionTitle}>Top Cantores Sertanejas:</Text>
+      <Text style={styles.sectionTitle}>Cantores Sertanejos:</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {featuredAlbums.map(album => (
           <MusicItem key={album.id} item={album} onPress={playMusic} />
@@ -111,6 +113,10 @@ const playlistsFUNK = [
           <MusicItem key={album.id} item={album} onPress={playMusic} />
         ))}
       </ScrollView>
+      
+      <TouchableOpacity style={styles.button} onPress={navigateToPagamento}>
+        <Text style={styles.back}>Fazer Upgrade</Text>
+      </TouchableOpacity>
 
     </ScrollView>
   );
@@ -175,6 +181,39 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 20,
   },
+  adContainer: {
+    backgroundColor: 'red',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  adText: {
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: 'center',
+    color: 'white'
+  },
+  upgradeButton: {
+    backgroundColor: 'black',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  upgradeButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  button: {
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: 'flex-start',
+    marginBottom: 10,
+  },
+  back: {
+    color: 'white',
+    fontSize: 16,
+  }
 });
 
 export default TelaInicial;

@@ -10,6 +10,7 @@ import Cadastro from "./Cadastro";
 import TelaInicial from "./TelaInicial";
 import Pagamento from "./Pagamento";
 import Premium from "./Premium";
+import MinhaLista from "./MinhaLista";
 
 import { UserContext } from './Context/UserContext';
 
@@ -33,39 +34,53 @@ export default function Rotas() {
         <Tab.Screen name="Home" 
         component={Home} 
          options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home-circle-outline" color={color} size={size} />
           ),
         }}
         />
+
         <Tab.Screen name="TelaInicial" 
         component={TelaInicial} 
          options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Versão gratis',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="music-circle" color={color} size={size} />
           ),
         }}
         />
+
+        <Tab.Screen name="MinhaLista" 
+          component={MinhaLista} 
+          options={{
+            tabBarLabel: 'Minha Lista',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="book-edit" color={color} size={size} />
+          ),
+        }}
+        />
+
         <Tab.Screen name="Pagamento" 
         component={Pagamento} 
          options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Nova Versão',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="cash-fast" color={color} size={size} />
           ),
         }}
         />
+
          <Tab.Screen name="Premium" 
         component={Premium} 
          options={{
-          tabBarLabel: '',
+          tabBarLabel: 'Premium da semana',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="motion-play" color={color} size={size} />
           ),
         }}
         />
+
       </Tab.Navigator>
     </NavigationContainer>
   );

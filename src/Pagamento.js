@@ -22,7 +22,7 @@ const Pagamento = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Faça parte da versão premium por apenas R$ 20,00</Text>
+      <Text style={styles.titulo}>Deseja ter acesso a nova versão? Pague apenas R$25,00 por mês!</Text>
       <Text style={styles.title}>Informe os dados do cartão</Text>
       <TextInput
         style={styles.input}
@@ -90,10 +90,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   titulo: {
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 15,
     color: 'white',
   },
 });
