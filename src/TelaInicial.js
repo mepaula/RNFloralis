@@ -16,15 +16,15 @@ const MusicItem = ({ item, onPress }) => (
 
 const TelaInicial = () => {
   const navigation = useNavigation();
-  const [isConnected, setIsConnected] = useState(true); // Estado da conexão à Internet
+  const [isConnected, setIsConnected] = useState(true); 
 
   useEffect(() => {
-    // Verificar o estado da conexão à Internet ao montar o componente
+
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
     });
 
-    return () => unsubscribe(); // Remover o listener ao desmontar o componente
+    return () => unsubscribe(); 
   }, []);
 
   const playlists = [
@@ -38,45 +38,45 @@ const TelaInicial = () => {
     { id: 1, title: 'Playlist Gilberto Gil', image: require('../assets/gilberto-gil.webp') },
     { id: 2, title: 'Caetano Veloso', image: require('../assets/Caetano-Veloso.jpg') },
     { id: 3, title: 'Chico Buarque', image: require('../assets/chicobuarque.webp') },
+   ];
+  
+  const playlistMPBconti = [
     { id: 4, title: 'Playlist Rita Lee', image: require('../assets/rita-lee.jpg') },
     { id: 5, title: 'Playlist Cazuza', image: require('../assets/album-cazuza.jpg') },
     { id: 5, title: 'Playlist Luiz Gonzaga', image: require('../assets/luiz-gonzaga.jpg') },
   ];
-  
+
   const featuredAlbums = [
-  { id: 1, title: 'Playlist Zé Felipe', image: require('../assets/ze-felipe.jpg') },
-  { id: 2, title: 'Playlist Léo Santana', image: require('../assets/leo-santana.webp') },
-  { id: 3, title: 'Playlist Wesley Safadão', image: require('../assets/wesley-safadao.jpg') },
-  { id: 4, title: 'Playlist Luan Santana', image: require('../assets/luan-city.jpg') },
-  { id: 5, title: 'Playlist Gusttavo Lima', image: require('../assets/gusttavo-lima.jpg') },
-  { id: 9, title: 'Playlist Ana Castela', image: require('../assets/ana-castela.jpg') },
-  { id: 10, title: 'Playlist Marília M.', image: require('../assets/marilia-mendonca.jpg') },
-  { id: 1, title: 'Playlist Zé Neto & Cristiano', image: require('../assets/Ze-Neto-Cristiano.jpeg') },
-  { id: 2, title: 'Playlist Jorge & Matheus', image: require('../assets/jorge-matheus.jpg') },
-  { id: 3, title: 'Playlist Gustavo Mioto', image: require('../assets/gustavo-mioto.jpg') },
-  { id: 4, title: 'Playlist Matheus & Kauan', image: require('../assets/matheus-kauan.jpg') },
-  { id: 5, title: 'Playlist Maiara & Maraisa', image: require('../assets/maiara-maraisa.jpg') },
-  { id: 6, title: 'Playlist Israel 7 Rodolfo', image: require('../assets/Israel-Rodolffo.jpg') },
-  { id: 7, title: 'Playlist Lauana Prado', image: require('../assets/Lauana-Prado.jpg') },
-  { id: 8, title: 'Playlist Simone Mendes', image: require('../assets/simoneses.webp') },
-  { id: 9, title: 'Playlist Guilher & Benuto', image: require('../assets/guilherme-e-benuto.webp') },
-  { id: 10, title: 'Playlist Felipe Araújo', image: require('../assets/Felipe-Araújo.jpg') },
-  ];
+  { id: 1, image: require('../assets/ze-felipe.jpg') },
+  { id: 2, image: require('../assets/leo-santana.webp') },
+  { id: 3, image: require('../assets/wesley-safadao.jpg') },
+  { id: 4, image: require('../assets/luan-city.jpg') },
+  { id: 5, image: require('../assets/gusttavo-lima.jpg') },
+  { id: 9, image: require('../assets/ana-castela.jpg') },
+  { id: 10, image: require('../assets/marilia-mendonca.jpg') },
+];
+
+  const featureAlbumsconti = [
+  { id: 1, image: require('../assets/Ze-Neto-Cristiano.jpeg') },
+  { id: 2, image: require('../assets/jorge-matheus.jpg') },
+  { id: 3, image: require('../assets/gustavo-mioto.jpg') },
+  { id: 4, image: require('../assets/matheus-kauan.jpg') },
+  { id: 5, image: require('../assets/maiara-maraisa.jpg') },
+  { id: 6, image: require('../assets/Israel-Rodolffo.jpg') },
+  { id: 7, image: require('../assets/Lauana-Prado.jpg') },
+  { id: 8, image: require('../assets/simoneses.webp') },
+  { id: 9, image: require('../assets/guilherme-e-benuto.webp') },
+  { id: 10, image: require('../assets/Felipe-Araújo.jpg') },
+];
 
   const playlistsTRAP = [
     
-  { id:1, title: 'Playlist Veigh', image: require('../assets/album-veigh.jpg') },
-  { id:2, title: 'Playlist KayBlack', image: require('../assets/album-kayblack.webp') },
-  { id:3, title: 'Playlist Matuê', image: require('../assets/album-matue.jpg') },
-  { id:4, title: 'Playlist Teto', image: require('../assets/album-teto.jpg') },
+  { id:1, image: require('../assets/album-veigh.jpg') },
+  { id:2, image: require('../assets/album-kayblack.webp') },
+  { id:3, image: require('../assets/album-matue.jpg') },
+  { id:4, image: require('../assets/album-teto.jpg') },
 ];
 
-const playlistsFUNK = [
-  { id:1,  title:'Playlist MC Daniel', image: require('../assets/album-mcdaniel.jpg') },
-  { id:2,  title:'Playlist Ludmilla', image: require('../assets/album-ludmilla.png') },
-  { id:3,  title:'Playlist MC Cabelinho', image: require('../assets/mc-cabelinho.webp') },
-  { id:4,  title:'Playlist MC Ryan SP', image: require('../assets/mc-ryan-sp.jpg') },
-];
 
   if (!isConnected) {
     return (
@@ -122,10 +122,22 @@ const playlistsFUNK = [
           <MusicItem key={album.id} item={album} onPress={playMusic} />
         ))}
       </ScrollView>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {featureAlbumsconti.map(album => (
+          <MusicItem key={album.id} item={album} onPress={playMusic} />
+        ))}
+      </ScrollView>
       
       <Text style={styles.sectionTitle}>Cantores MPB:</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {playlistsMPB.map(album => (
+          <MusicItem key={album.id} item={album} onPress={playMusic} />
+        ))}
+      </ScrollView>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {playlistMPBconti.map(album => (
           <MusicItem key={album.id} item={album} onPress={playMusic} />
         ))}
       </ScrollView>
@@ -136,14 +148,8 @@ const playlistsFUNK = [
           <MusicItem key={album.id} item={album} onPress={playMusic} />
         ))}
       </ScrollView>
-
-      <Text style={styles.sectionTitle}>Cantores Funk:</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {playlistsFUNK.map(album => (
-          <MusicItem key={album.id} item={album} onPress={playMusic} />
-        ))}
-      </ScrollView>
       
+      <Text style={styles.sectionTitle}>Para ter acesso à mais músicas, faça Upgrade, agora</Text>
       <TouchableOpacity style={styles.button} onPress={navigateToPagamento}>
         <Text style={styles.back}>Fazer Upgrade</Text>
       </TouchableOpacity>
@@ -226,7 +232,11 @@ const styles = StyleSheet.create({
   back: {
     color: 'white',
     fontSize: 16,
-  }
+  },
+  section: {
+    
+
+  },
 });
 
 export default TelaInicial;

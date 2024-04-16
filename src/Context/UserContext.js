@@ -7,6 +7,8 @@ function UserProvider({children})
 {
     const[ usuario, setUsuario ] = useState(null);
     const[ logado, setLogado ] = useState( false );
+    const[ cadastro, setCadastro ] = useState( false );
+
     async function Login( email, senha )
     {
         if( email == "ana.silva106@icloud.com" && senha == "121257@Ana" ){
@@ -27,7 +29,7 @@ function UserProvider({children})
     }, [] );
 
     return(
-        <UserContext.Provider value={ { usuario: usuario, logado: logado, Login, infoUsuario  } }>
+        <UserContext.Provider value={ { usuario: usuario, logado: logado, Login, infoUsuario, cadastro: cadastro, setCadastro, setLogado } }>
             {children}
         </UserContext.Provider>
     )

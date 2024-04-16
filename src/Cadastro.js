@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { UserContext } from './Context/UserContext';
 
 
 
@@ -81,7 +82,7 @@ const Cadastro = ({ navigation }) => {
         value={senha}
         secureTextEntry={true}
       />
-      <Text style={styles.label}>Confirmação de senha:</Text>
+      <Text style={styles.label }>Confirmação de senha:</Text>
       <TextInput
         style={styles.input}
         placeholder="Digite aqui"
@@ -89,10 +90,9 @@ const Cadastro = ({ navigation }) => {
         value={confirmacao}
         secureTextEntry={true}
       />
-      <Button
+      <Button style={styles.button}
         title="CADASTRAR"
         onPress={cadastrar}
-        color="red"
       />
     </ScrollView>
   );

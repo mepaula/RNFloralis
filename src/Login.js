@@ -9,7 +9,7 @@ export default function Login() {
   const [erro, setErro] = useState(false);
   const [logoOpacity] = useState(new Animated.Value(0));
 
-  const { TelaInicial, Login } = useContext(UserContext);
+  const { TelaInicial, Login, setCadastro } = useContext(UserContext);
 
   useEffect(() => {
     fadeInLogo();
@@ -46,6 +46,10 @@ export default function Login() {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       {erro && <Text style={styles.errorMessage}>Email ou senha incorretos</Text>}
+      <TouchableOpacity onPress={() => { setCadastro( true ) } }>
+        <Text style={styles.cadastrarTexto} >Ainda não é cadastrado? Cadastre-se</Text>
+      </TouchableOpacity>
+      
     </View>
   );
 }
@@ -95,6 +99,9 @@ const styles = StyleSheet.create({
     color: 'red', 
     marginTop: 10,
   },
+  cadastrarTexto: {
+    color: "white"
+  }
 });
 
 

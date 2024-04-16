@@ -53,7 +53,6 @@ const Premium = () => {
     { title: 'Gustavo Mioto', image: require('../assets/gustavo-mioto.jpg') },
     { title: 'Matheus & Kauan', image: require('../assets/matheus-kauan.jpg') },
     { title: 'Maiara & Maraisa', image: require('../assets/maiara-maraisa.jpg') },
-    { title: 'Leonardo', image: require('../assets/leonardo.jpg') },
   ];
 
   const featuredAlbumsconti = [
@@ -101,7 +100,7 @@ const Premium = () => {
   };
 
   const navigateToHome = () => {
-    navigation.navigate('Login'); // Navegando de volta para a  Home
+    navigation.navigate('Home'); // Navegando de volta para a  Home
   };
 
     return (
@@ -158,8 +157,9 @@ const Premium = () => {
           ))}
         </ScrollView>
 
+        <Text style={styles.sectionTitle}>Deseja sair da Nova Versão? </Text>
         <TouchableOpacity style={styles.backButton} onPress={navigateToHome}>
-        <Text style={styles.backButtonText}>Sair</Text>
+        <Text style={styles.backButtonText}>Clique aqui</Text>
       </TouchableOpacity>
 
       </ScrollView>

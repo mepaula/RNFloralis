@@ -13,7 +13,6 @@ import TelaInicial from "./TelaInicial";
 import Pagamento from "./Pagamento";
 import Premium from "./Premium";
 import MinhaLista from "./MinhaLista";
-
 import { UserContext } from './Context/UserContext';
 
 
@@ -21,10 +20,16 @@ const Tab = createBottomTabNavigator();
 
 export default function Rotas() {
 
-  const { logado } = useContext(UserContext);
-  if (logado == false) {
+  const { logado, cadastro } = useContext(UserContext);
+
+  if ( !logado && !cadastro ) {
     return (<Login />)
   }
+
+  if( cadastro && !logado ) {
+    return( <Cadastro /> )
+  }
+
   
   return (
     <NavigationContainer>
@@ -32,7 +37,8 @@ export default function Rotas() {
         screenOptions={{
           headerShown: false
         }}
-      >
+
+        >
         <Tab.Screen name="Home" 
         component={Home} 
          options={{
