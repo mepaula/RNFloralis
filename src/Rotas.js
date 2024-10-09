@@ -6,13 +6,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useBatteryLevel } from 'expo-battery';
 
 
-import Home from "./Home";
+import TelaInicial from "./TelaInicial";
 import Login from "./Login";
 import Cadastro from "./Cadastro";
-import TelaInicial from "./TelaInicial";
-import Pagamento from "./Pagamento";
-import Premium from "./Premium";
-import MinhaLista from "./MinhaLista";
+import NossasPlantas from "./NossasPlantas";
+import CatálogoPlantas from "./CatálogoPlantas";
 import { UserContext } from './Context/UserContext';
 
 
@@ -39,28 +37,28 @@ export default function Rotas() {
         }}
 
         >
-        <Tab.Screen name="Home" 
-        component={Home} 
+        <Tab.Screen name="TelaInicial" 
+        component={TelaInicial} 
          options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Início',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home-circle-outline" color={color} size={size} />
           ),
         }}
         />
 
-        <Tab.Screen name="TelaInicial" 
-        component={TelaInicial} 
+        <Tab.Screen name="CatálogoPlantas" 
+        component={CatálogoPlantas} 
          options={{
-          tabBarLabel: 'Versão gratis',
+          tabBarLabel: 'Catálogo',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="music-circle" color={color} size={size} />
+            <MaterialCommunityIcons name="application-edit-outline" color={color} size={size} />
           ),
         }}
         />
 
-        <Tab.Screen name="MinhaLista" 
-          component={MinhaLista} 
+        <Tab.Screen name="NossasPlantas" 
+          component={NossasPlantas} 
           options={{
             tabBarLabel: 'Minha Lista',
             tabBarIcon: ({ color, size }) => (
@@ -69,22 +67,22 @@ export default function Rotas() {
         }}
         />
 
-        <Tab.Screen name="Pagamento" 
-        component={Pagamento} 
+        <Tab.Screen name="Cadastro" 
+        component={Cadastro} 
          options={{
-          tabBarLabel: 'Nova Versão',
+          tabBarLabel: 'Cadastro',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="cash-fast" color={color} size={size} />
+            <MaterialCommunityIcons name="account-box" color={color} size={size} />
           ),
         }}
         />
 
-         <Tab.Screen name="Premium" 
-        component={Premium} 
+        <Tab.Screen name="Login" 
+        component={Login} 
          options={{
-          tabBarLabel: 'Premium da semana',
+          tabBarLabel: 'Login',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="motion-play" color={color} size={size} />
+            <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
         }}
         />

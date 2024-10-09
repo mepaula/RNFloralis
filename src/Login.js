@@ -25,7 +25,7 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={require('../assets/logo-usuario.png')}
+        source={require('../assets/logo-floralis.jpeg')}
         style={[styles.logo, { opacity: logoOpacity }]}
       />
       <Text style={styles.title}>Faça login para acessar o aplicativo</Text>

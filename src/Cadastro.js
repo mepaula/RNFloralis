@@ -39,10 +39,10 @@ const Cadastro = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
        <Image
-        source={require('../assets/logopulseplataform.png')}
+        source={require('../assets/logo-floralis.jpeg')}
         style={styles.logo}
       />
-      <Text style={styles.titulo}>CADASTRE-SE PARA TER ACESSO AO NOSSO SITE:</Text>
+      <Text style={styles.titulo}>CADASTRO:</Text>
       <Text style={styles.label}>Nome:</Text>
       <TextInput
         style={styles.input}
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 90,
-    height: 40,
+    height: 70,
     marginBottom: 20,
   }
 });

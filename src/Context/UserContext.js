@@ -6,7 +6,7 @@ export const UserContext = createContext();
 function UserProvider({children})
 {
     const[ usuario, setUsuario ] = useState(null);
-    const[ logado, setLogado ] = useState( false );
+    const[ logado, setLogado ] = useState( true );
     const[ cadastro, setCadastro ] = useState( false );
 
     async function Login( email, senha )
