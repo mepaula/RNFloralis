@@ -1,56 +1,76 @@
-import React from 'react';
-import { Text, StyleSheet, ScrollView, Image, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Text, StyleSheet, ScrollView, Image, TouchableOpacity, View, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialIcons } from '@expo/vector-icons'; // Ícone de menu e de fechar
+
+const screenWidth = Dimensions.get('window').width; // Obtenção da largura da tela
 
 const MusicItem = ({ item, onPress }) => (
   <TouchableOpacity style={styles.item} onPress={() => onPress(item.title)}>
     <Image source={item.image} style={styles.image} />
     <Text style={styles.title}>{item.title}</Text>
     {item.artist && <Text style={styles.artist}>{item.artist}</Text>}
-    <TouchableOpacity
-      style={styles.playButton}
-      onPress={() => onPress(item.title)}
-      accessibilityLabel={`Reproduzir ${item.title}`}
-    >
-
-    </TouchableOpacity>
   </TouchableOpacity>
 );
 
 const TelaInicial = () => {
   const navigation = useNavigation();
+  const [menuVisible, setMenuVisible] = useState(false); // Controle de visibilidade do menu
 
   const plantas = [
-    { title: '#', image: require('../assets/plantascarrossel1.jpg') },
-    { title: '#', image: require('../assets/plantascarrossel2.png') },
-    { title: '#', image: require('../assets/plantascarrossel3.png') },
-    { title: '#', image: require('../assets/plantascarrossel4.jpg') },
-    { title: '#', image: require('../assets/imagemcarrossel5.jpg') },
+    { image: require('../assets/plantascarrossel1.jpg') },
+    { image: require('../assets/plantascarrossel2.png') },
+    { image: require('../assets/plantascarrossel3.png') },
+    { image: require('../assets/plantascarrossel4.jpg') },
+    { image: require('../assets/imagemcarrossel5.jpg') },
   ];
 
-  // (Outros arrays de playlists e álbuns omitidos para brevidade)
-
   const plantar = (title) => {
-    console.log('Reproduzindo música:', title);
+    console.log('Reproduzindo comando:', title);
   };
 
   const navigateToHome = () => {
-    navigation.navigate('Home');
+    navigation.navigate('NossasPlantas');
   };
 
   return (
     <ScrollView style={styles.container}>
-      {/* Cabeçalho */}
+      {/* Menu de Cabeçalho */}
       <View style={styles.header}>
         <Image source={require('../assets/logo-floralis.jpeg')} style={styles.logo} />
-        <Text style={styles.headerTitle}>Início</Text>
-        <TouchableOpacity onPress={navigateToHome} style={styles.backButton}>
-          <Text style={styles.backButtonText}>Voltar</Text>
+        <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)} style={styles.menuIcon}>
+          <MaterialIcons name="menu" size={32} color="#006400" />
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.heading}>BEM-VINDO Á FLORALIS!</Text>
+      {/* Menu Oculto como Drawer (lado direito) */}
+      {menuVisible && (
+        <View style={styles.drawerMenu}>
+          {/* Ícone de Fechar (X) */}
+          <TouchableOpacity onPress={() => setMenuVisible(false)} style={styles.closeIcon}>
+            <MaterialIcons name="close" size={32} color="#006400" />
+          </TouchableOpacity>
 
+          {/* Itens do Menu */}
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Tela Inicial</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Catálogo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Projeto</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Relatório</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={navigateToHome} style={styles.menuItem}>
+            <Text style={styles.menuText}>Nossas Plantas</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      <Text style={styles.heading}>BEM-VINDO Á FLORALIS!</Text>
       <Text style={styles.sectionTitle}>Descubra a beleza da flora e cuide do seu jardim.</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {plantas.map((planta, index) => (
@@ -58,66 +78,51 @@ const TelaInicial = () => {
         ))}
       </ScrollView>
 
+      {/* Imagens de Plantas em Tamanhos Menores */}
       <View style={styles.plantas}>
-        
         <View style={styles.planta}>
-            <Image source={require('../assets/rosa.jpg')}/>
+          <Image source={require('../assets/rosa.jpg')} style={styles.plantaImage} />
         </View>
-
         <View style={styles.planta}>
-            <Image source={require('../assets/tulipa.webp')}/>
+          <Image source={require('../assets/tulipa.webp')} style={styles.plantaImage} />
         </View>
-
       </View>
 
       <View style={styles.plantas}>
-        
         <View style={styles.planta}>
-            <Image source={require('../assets/girassol.jpeg')}/>
+          <Image source={require('../assets/girassol.jpeg')} style={styles.plantaImage} />
         </View>
-        
         <View style={styles.planta}>
-            <Image source={require('../assets/cacto.webp')}/>
+          <Image source={require('../assets/cacto.webp')} style={styles.plantaImage} />
         </View>
-
       </View>
 
       <View style={styles.plantas}>
-        
         <View style={styles.planta}>
-            <Image source={require('../assets/lavanda.webp')}/>
+          <Image source={require('../assets/lavanda.webp')} style={styles.plantaImage} />
         </View>
-        
         <View style={styles.planta}>
-            <Image source={require('../assets/orquídea.jpeg')}/>
+          <Image source={require('../assets/orquídea.jpeg')} style={styles.plantaImage} />
         </View>
-
       </View>
 
       <View style={styles.plantas}>
-        
         <View style={styles.planta}>
-            <Image source={require('../assets/arvores.jpg')}/>
+          <Image source={require('../assets/arvores.jpg')} style={styles.plantaImage} />
         </View>
-        
         <View style={styles.planta}>
-            <Image source={require('../assets/buque-de-flores-organicas.jpg')}/>
+          <Image source={require('../assets/buque-de-flores-organicas.jpg')} style={styles.plantaImage} />
         </View>
-
       </View>
 
       <View style={styles.plantas}>
-        
         <View style={styles.planta}>
-            <Image source={require('../assets/espada-de-São-Jorge.webp')}/>
+          <Image source={require('../assets/espada-de-São-Jorge.webp')} style={styles.plantaImage} />
         </View>
-        
         <View style={styles.planta}>
-            <Image source={require('../assets/frutiferas.jpeg')}/>
+          <Image source={require('../assets/frutiferas.jpeg')} style={styles.plantaImage} />
         </View>
-
       </View>
-
     </ScrollView>
   );
 };
@@ -125,96 +130,109 @@ const TelaInicial = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: 'black',
-    padding: 10,
+    backgroundColor: '#FFFFFF',
   },
   header: {
-    backgroundColor: 'black',
-    padding: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius: 10,
-    marginBottom: 20,
+    padding: 20,
+    backgroundColor: '#E0F7E9',
   },
   logo: {
-    width: 50,
-    height: 40,
+    width: 75,
+    height: 75,
+    borderRadius: 55,
+    borderWidth: 2,
+    borderColor: '#00C853',
   },
-  headerTitle: {
-    color: 'white',
-    fontSize: 24,
+  menuIcon: {
+    padding: 20,
+    backgroundColor: '#E0F7E9',
+    borderRadius: 10,
+  },
+  drawerMenu: {
+    position: 'absolute',
+    top: 0,
+    right: 0, 
+    width: screenWidth * 0.75, 
+    height: '100%',
+    backgroundColor: '#E0F7E9',
+    zIndex: 10, 
+    paddingTop: 50, 
+    paddingHorizontal: 20,
+    borderLeftWidth: 1,
+    borderLeftColor: '#ccc', 
+  },
+  closeIcon: {
+    alignSelf: 'flex-end', // Alinha o botão "X" à direita
+    padding: 10,
+  },
+  menuItem: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  menuText: {
+    fontSize: 18,
+    color: '#006400',
     fontWeight: 'bold',
   },
   heading: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 20,
-    color: 'white',
+    color: '#006400',
     textAlign: 'center',
+    marginVertical: 20,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 10,
-    color: 'white',
-  },
-  item: {
-    marginRight: 10,
+    fontSize: 18,
+    color: '#006400',
+    textAlign: 'center',
     marginBottom: 20,
   },
-  image: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
-  },
-  title: {
-    marginTop: 5,
-    fontSize: 16,
-    color: 'white',
-  },
-  artist: {
-    fontSize: 14,
-    color: 'white',
-  },
-  playButton: {
-    position: 'absolute',
-    bottom: 5,
-    right: 5,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    borderRadius: 20,
-    width: 30,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  playButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  backButton: {
-    backgroundColor: '#333',
+  item: {
+    margin: 10,
     padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
+    backgroundColor: '#E0F7E9',
+    borderRadius: 10,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
   },
-  backButtonText: {
-    color: 'white',
-    fontSize: 16,
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#00C853',
   },
   plantas: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 15,
   },
   planta: {
-    width: "49%",
-    backgroundColor: "white"
-  }
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    alignItems: 'center',
+  },
+  plantaImage: {
+    width: 90, // Dimensão reduzida das imagens
+    height: 90,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#00C853',
+  },
 });
 
 export default TelaInicial;

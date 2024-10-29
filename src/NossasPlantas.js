@@ -1,139 +1,191 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Text, StyleSheet, ScrollView, Image, TouchableOpacity, View, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialIcons } from '@expo/vector-icons'; // Ícone de menu e de fechar
 
-const lista = [
-  { id: 1, title: 'Cactos', image: require('../assets/cacto.webp') },
-  { id: 2, title: 'Tulipas', image: require('../assets/tulipa.webp')},
-  { id: 3, title: 'Lavandas para aromartizar', image: require('../assets/lavanda.webp') },
-  { id: 4, title: 'Espada de São Jorge', image: require('../assets/espada-de-São-Jorge.webp') },
-  { id: 5, title: 'Girassol Iluminado', image: require('../assets/girassol.jpeg')},
-  { id: 6, title: 'Rosas mais cheirosas', image: require('../assets/rosa.jpg') },
-  { id: 7, title: 'Carnívoras', image: require('../assets/carnivoras.webp') },
-  { id: 8, title: 'Orquídeas mais lindas', image: require('../assets/orquídea.jpeg') },
-  { id: 9, title: 'Projeto Árvore', image: require('../assets/arvores.jpg') },
-  { id: 10, title: 'Os mais lindos arranjos', image: require('../assets/arranjo-floristico.avif') },
-  { id: 11, title: 'Buques para os apaixonados', image: require('../assets/buque-de-flores-organicas.jpg') },
-];
+const screenWidth = Dimensions.get('window').width; // Obtenção da largura da tela
+
+const PlantItem = ({ item, onPress }) => (
+  <TouchableOpacity onPress={onPress} style={styles.planta}>
+    <Image source={item.image} style={styles.plantaImage} />
+    <Text style={styles.plantaTitle}>{item.title}</Text>
+    {item.showInfo && <Text style={styles.plantaDescription}>{item.description}</Text>}
+  </TouchableOpacity>
+);
 
 const NossasPlantas = () => {
   const navigation = useNavigation();
+  const [menuVisible, setMenuVisible] = useState(false); // Controle de visibilidade do menu
+  const [plants, setPlants] = useState([
+    { title: 'Cactos - pteridófita', image: require('../assets/cacto.webp'), description: 'Cactos são plantas suculentas que armazenam água.', showInfo: false },
+    { title: 'Tulipas - angiospermas ', image: require('../assets/tulipa.webp'), description: 'Tulipas são flores populares conhecidas por sua beleza.', showInfo: false },
+    { title: 'Lavandas - Lamiaceae', image: require('../assets/lavanda.webp'), description: 'Lavandas são conhecidas pelo seu aroma relaxante.', showInfo: false },
+    { title: 'Espada de São Jorge - protetora', image: require('../assets/espada-de-São-Jorge.webp'), description: 'Planta resistente que purifica o ar.', showInfo: false },
+    { title: 'Girassol - angiospermas', image: require('../assets/girassol.jpeg'), description: 'Girassóis seguem a luz do sol.', showInfo: false },
+    { title: 'Rosas - Rosaceae', image: require('../assets/rosa.jpg'), description: 'Rosas são símbolo de amor e beleza.', showInfo: false },
+    { title: 'Carnívoras - insetívoras', image: require('../assets/carnivoras.webp'), description: 'Plantas que se alimentam de insetos.', showInfo: false },
+    { title: 'Orquídeas - Orchidaceae', image: require('../assets/orquídea.jpeg'), description: 'Orquídeas são flores exóticas e elegantes.', showInfo: false },
+    { title: 'Árvores -  tronco lenhoso', image: require('../assets/arvores.jpg'), description: 'As árvores são essenciais para o ecossistema.', showInfo: false },
+    { title: 'Carnivoras - insetívoras', image: require('../assets/carnivoras.webp'), description: 'A conservação das plantas carnívoras detém grande importância para o equilíbrio ecossistêmico.', showInfo: false },
+     { title: 'Frutiferas - pseudofrutos', image: require('../assets/frutiferas.jpeg'), description: 'Como o próprio nome já diz, as árvores frutíferas são aquelas que dão frutos — as partes comestíveis que se originam a partir da flor.', showInfo: false },
+    { title: 'Frutiferas - pomoideae', image: require('../assets/Maçã.jpg'), description: 'Como o próprio nome já diz, as árvores frutíferas são aquelas que dão frutos — as partes comestíveis que se originam a partir da flor.', showInfo: false },
+  ]);
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
-      <Image source={item.image} style={styles.image} />
-    </TouchableOpacity>
-  );
+  const handleMenuPress = () => {
+    setMenuVisible(!menuVisible);
+  };
 
-  const handleBackToHome = () => {
+  const handleNavigateToHome = () => {
     navigation.navigate('TelaInicial');
   };
 
+  const togglePlantInfo = (index) => {
+    const updatedPlants = plants.map((plant, idx) => 
+      idx === index ? { ...plant, showInfo: !plant.showInfo } : plant
+    );
+    setPlants(updatedPlants);
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Cabeçalho */}
       <View style={styles.header}>
-        <Image
-          source={require('../assets/logo-floralis.jpeg')}
-          style={styles.logo}
-        />
-        <View style={styles.nav}>
-          <Text style={styles.navItem}>Início</Text>
-          <Text style={styles.navItem}>NossasPlantas</Text>
-          <Text style={styles.navItem}>CatálogoPlantas</Text>
-          <Text style={styles.navItem}>Sobre</Text>
-        </View>
+        <Image source={require('../assets/logo-floralis.jpeg')} style={styles.logo} />
+        <TouchableOpacity onPress={handleMenuPress} style={styles.menuIcon}>
+          <MaterialIcons name="menu" size={32} color="#006400" />
+        </TouchableOpacity>
       </View>
 
-      <Text style={styles.title}>Nossas Plantas</Text>
-      <TouchableOpacity style={styles.backButton} onPress={handleBackToHome}>
-        <Text style={styles.backButtonText}>Voltar</Text>
-      </TouchableOpacity>
-      <FlatList
-        data={lista}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.listContainer}
-      />
-    </View>
+      {/* Menu lateral (Drawer) */}
+      {menuVisible && (
+        <View style={styles.drawerMenu}>
+          <TouchableOpacity onPress={() => setMenuVisible(false)} style={styles.closeIcon}>
+            <MaterialIcons name="close" size={32} color="#006400" />
+          </TouchableOpacity>
+
+          {/* Itens do menu */}
+          <TouchableOpacity onPress={handleNavigateToHome} style={styles.menuItem}>
+            <Text style={styles.menuText}>Tela Inicial</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Catálogo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Projeto</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Relatório</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Nossas Plantas</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      {/* Título da seção */}
+      <Text style={styles.heading}>Nossas Plantas</Text>
+
+      {/* Exibição das plantas */}
+      <View style={styles.plantasContainer}>
+        {plants.map((planta, index) => (
+          <PlantItem 
+            key={index} 
+            item={planta} 
+            onPress={() => togglePlantInfo(index)} // Chama a função ao clicar na planta
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
-    padding: 20,
+    backgroundColor: '#FFFFFF',
   },
   header: {
-    backgroundColor: '#000',
-    paddingVertical: 10, // Diminuí o padding para ajustar
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#E0F7E9',
   },
   logo: {
-    width: 80, // Ajuste de largura do logo
-    height: 40,
-    resizeMode: 'contain',
+    width: 75,
+    height: 75,
+    borderRadius: 55,
+    borderWidth: 2,
+    borderColor: '#00C853',
   },
-  nav: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  menuIcon: {
+    padding: 20,
+    backgroundColor: '#E0F7E9',
+    borderRadius: 10,
   },
-  navItem: {
-    color: '#FFF',
-    marginHorizontal: 10, // Ajuste para espaçamento
-    fontSize: 16,
+  drawerMenu: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: screenWidth * 0.75,
+    height: '100%',
+    backgroundColor: '#E0F7E9',
+    zIndex: 10,
+    paddingTop: 50,
+    paddingHorizontal: 20,
+    borderLeftWidth: 1,
+    borderLeftColor: '#ccc',
+  },
+  closeIcon: {
+    alignSelf: 'flex-end',
+    padding: 10,
+  },
+  menuItem: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  menuText: {
+    fontSize: 18,
+    color: '#006400',
     fontWeight: 'bold',
   },
-  title: {
-    fontSize: 35,
+  heading: {
+    fontSize: 28,
     fontWeight: 'bold',
+    color: '#006400',
     textAlign: 'center',
     marginVertical: 20,
-    color: '#FFF',
   },
-  backButton: {
-    backgroundColor: '#1DB954',
-    padding: 10,
-    borderRadius: 5,
-    alignSelf: 'flex-start',
-    marginBottom: 10,
-  },
-  backButtonText: {
-    color: '#FFF',
-    fontSize: 16,
-  },
-  listContainer: {
-    paddingBottom: 20,
-  },
-  itemContainer: {
-    backgroundColor: '#282828',
-    borderRadius: 8,
-    marginBottom: 15,
+  plantasContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  planta: {
+    width: screenWidth * 0.4,
+    margin: 10,
     alignItems: 'center',
-    padding: 10,
-    elevation: 5,
   },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 5,
-    marginRight: 10,
+  plantaImage: {
+    width: '100%',
+    height: 150,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#00C853',
   },
-  infoContainer: {
-    flex: 1,
-  },
-  itemTitle: {
-    fontSize: 18,
+  plantaTitle: {
+    marginTop: 10,
+    fontSize: 16,
     fontWeight: 'bold',
-    color: '#1DB954',
+    color: '#006400',
+    textAlign: 'center',
   },
-  itemText: {
+  plantaDescription: {
+    marginTop: 5,
     fontSize: 14,
-    color: '#B3B3B3',
+    color: 'black',
+    textAlign: 'center',
   },
 });
 

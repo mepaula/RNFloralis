@@ -10,7 +10,7 @@ import TelaInicial from "./TelaInicial";
 import Login from "./Login";
 import Cadastro from "./Cadastro";
 import NossasPlantas from "./NossasPlantas";
-import CatálogoPlantas from "./CatálogoPlantas";
+import Catalogo from "./Catalogo";
 import { UserContext } from './Context/UserContext';
 
 
@@ -27,7 +27,6 @@ export default function Rotas() {
   if( cadastro && !logado ) {
     return( <Cadastro /> )
   }
-
   
   return (
     <NavigationContainer>
@@ -47,8 +46,8 @@ export default function Rotas() {
         }}
         />
 
-        <Tab.Screen name="CatálogoPlantas" 
-        component={CatálogoPlantas} 
+        <Tab.Screen name="Catalogo" 
+        component={Catalogo} 
          options={{
           tabBarLabel: 'Catálogo',
           tabBarIcon: ({ color, size }) => (
@@ -60,29 +59,9 @@ export default function Rotas() {
         <Tab.Screen name="NossasPlantas" 
           component={NossasPlantas} 
           options={{
-            tabBarLabel: 'Minha Lista',
+            tabBarLabel: 'Nossas Plantas',
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="book-edit" color={color} size={size} />
-          ),
-        }}
-        />
-
-        <Tab.Screen name="Cadastro" 
-        component={Cadastro} 
-         options={{
-          tabBarLabel: 'Cadastro',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account-box" color={color} size={size} />
-          ),
-        }}
-        />
-
-        <Tab.Screen name="Login" 
-        component={Login} 
-         options={{
-          tabBarLabel: 'Login',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
         }}
         />

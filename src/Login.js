@@ -19,9 +19,10 @@ export default function Login() {
     Animated.timing(logoOpacity, {
       toValue: 1,
       duration: 1000,
-      useNativeDriver: true
+      useNativeDriver: false
     }).start();
-  }
+  };
+
   return (
     <View style={styles.container}>
       <Animated.Image
@@ -32,24 +33,28 @@ export default function Login() {
       <TextInput
         style={styles.input}
         placeholder='E-mail'
+        placeholderTextColor="#999"
         onChangeText={(digitado) => setEmail(digitado)}
         value={email}
+        keyboardType="email-address"
       />
       <TextInput
         style={styles.input}
         placeholder='Senha'
+        placeholderTextColor="#999"
         onChangeText={(digitado) => setSenha(digitado)}
         value={senha}
         secureTextEntry={true}
       />
-      <TouchableOpacity style={styles.button} onPress={Login( email, senha )}>
+      <TouchableOpacity style={styles.button} onPress={() => Login(email, senha)}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       {erro && <Text style={styles.errorMessage}>Email ou senha incorretos</Text>}
-      <TouchableOpacity onPress={() => { setCadastro( true ) } }>
-        <Text style={styles.cadastrarTexto} >Ainda não é cadastrado? Cadastre-se</Text>
-      </TouchableOpacity>
       
+      {/* Botão que leva o usuário para a tela de cadastro */}
+      <TouchableOpacity style={styles.cadastroButton} onPress={() => setCadastro(true)}>
+        <Text style={styles.cadastrarTexto}>Ainda não é cadastrado? Cadastre-se</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -59,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#F5F5F5',  // Fundo claro
   },
   logo: {
     width: 150,
@@ -70,29 +75,30 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 20,
     textAlign: 'center',
-    color: 'red', 
+    color: '#006400',  // Verde escuro
   },
   input: {
     width: '80%',
     height: 40,
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: '#006400',  // Verde escuro nas bordas
     borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,
-    color: 'white', 
+    color: '#333',  // Texto mais escuro
+    backgroundColor: '#FFFFFF',  // Fundo branco nos inputs
   },
   button: {
     width: '80%',
     height: 40,
-    backgroundColor: 'red',
+    backgroundColor: '#006400',  // Botão com fundo verde escuro
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
     marginBottom: 10,
   },
   buttonText: {
-    color: '#fff',
+    color: '#FFFFFF',  // Texto branco
     fontSize: 16,
   },
   errorMessage: {
@@ -100,9 +106,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   cadastrarTexto: {
-    color: "white"
-  }
+    color: '#FFFFFF',  // Texto branco no botão de cadastro
+    fontSize: 16,
+  },
+  cadastroButton: {
+    width: '80%',
+    height: 40,
+    backgroundColor: '#006400',  // Botão com fundo verde escuro
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginTop: 10,
+  },
 });
-
-
-
